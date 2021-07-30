@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap");
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+$font-size: 48px;
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 500px;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+
+  .box {
+    width: 1000px;
+    height: auto;
+    display: flex;
+    text-align:left;
+    #text {
+      display: flex;
+      font-size: $font-size;
+      line-height: $font-size;
+      #text_to_change {
+        padding-left: 24px;
+        font-weight: 600;
+      }
+      #text_line {
+        margin-left: 5px;
+        width: 2px;
+        height: $font-size;
+        background: black;
+        animation-name: pulse;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+      }
+    }
+  }
+}
