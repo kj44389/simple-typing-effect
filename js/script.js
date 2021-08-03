@@ -1,17 +1,16 @@
 function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
-async function popText(element, text, ms) {
-    for (let i = text.length - 1; i >= 0; i--) {
-        text = text.slice(0, i); // cutting 1 letter each iteration
-        element.innerText = text; // and assign it to element
-        await sleep(ms); // then wait
+async function popText(element, ms) {
+    while(element.innerText.length != 0){
+        element.innerText = element.innerText.slice(0, -1);
+        await sleep(ms);
     }
 }
 async function insertText(element, text_from, ms) {
-    let text = "";
-    for (let i = 0; i < text_from.length; i++) {
-        text += text_from[i]; // each time add next letter to text variable from string
+    let text = '';
+    for (let i of [...text_from]) { // get each char character from string (spread operator ES6)
+        text += i; // each time add next letter to text variable from string
         element.innerText = text; // asign it to element
         await sleep(ms); // then wait
     }
@@ -31,12 +30,12 @@ async function insertText(element, text_from, ms) {
     }
     //////////////////
     await sleep(config.initialSleep); // initial sleep 
-    for (let x = 0; x < config.texts.length; x++) {
+
+    for (let x of config.texts) { // get each text from array (ES6 for iterator) 
         let element = document.getElementById("text_to_change");
-        let text = element.innerText; // get text from element
-        await popText(element, text, config.operationSleep); // delete text with "pop effect"
+        await popText(element, config.operationSleep); // delete text from element with "pop effect"
         await sleep(config.afterPopingSleep);
-        await insertText(element, config.texts[x], config.operationSleep); // inserting text from array
+        await insertText(element, x, config.operationSleep); // inserting text from array
         await sleep(config.afterInsertingSleep);
     }
 })();
